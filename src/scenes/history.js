@@ -61,9 +61,12 @@ export function sceneEmpires(ctx) {
       cam.fov = 50;
     },
     update(local, time, dt) {
-      if (local < 0.05) splitTarget = 0;
-      splitTarget = Math.max(splitTarget, remap(local, 0.18, 0.4));
-      split = lerp(split, splitTarget, dt * 2.2);
+      const grow = remap(local, 0.18, 0.4);
+      const leave = remap(local, 0.8, 0.94);
+      const want = grow * (1 - leave);
+      splitTarget = local > 0.8 ? want : Math.max(splitTarget, want);
+      if (local < 0.08) splitTarget = 0;
+      split = lerp(split, splitTarget, dt * (local > 0.8 ? 5 : 2.2));
       api.grade.split = split;
       seam?.style.setProperty('--split', split.toFixed(3));
       panels.forEach((p, i) => { glow[i] = lerp(glow[i], 0, dt * 0.8); p.material.color.setScalar(p.userData.gain * (1 + glow[i] * 0.45)); });

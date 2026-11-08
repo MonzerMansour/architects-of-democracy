@@ -287,7 +287,8 @@ mark.pulse .w, mark.pulse .c { animation: markPulse 0.9s ease-out; }
   width: 3px;
   margin-left: -1.5px;
   opacity: var(--split, 0);
-  transform: scaleY(var(--split, 0));
+  transform-origin: top center;
+  transform: translateY(calc((1 - var(--split, 0)) * -120vh)) scaleY(var(--split, 0));
   background: linear-gradient(to bottom, transparent, #ffe9b8 8%, #ffffff 50%, #ffe9b8 92%, transparent);
   box-shadow: 0 0 8px 2px #fff6dc, 0 0 26px 6px rgba(255, 210, 120, 0.8), 0 0 90px 18px rgba(255, 170, 70, 0.35);
   pointer-events: none;

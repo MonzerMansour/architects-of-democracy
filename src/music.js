@@ -14,9 +14,7 @@ function looping(src) {
   el.loop = true;
   el.preload = 'auto';
   el.playsInline = true;
-  el.autoplay = true;
   el.volume = 0;
-  el.load();
   return el;
 }
 
@@ -37,23 +35,33 @@ export function startMusic({ sad, glad }, button) {
   let muted = localStorage.getItem('aod-muted') === '1';
   let started = false;
   let last = performance.now();
+  let shownPlaying = false;
 
   const tabOn = () => !document.hidden && document.visibilityState === 'visible';
-  const allowed = () => !muted && tabOn();
-  const audible = () => tracks.some((el) => !el.paused);
+  const running = () => tracks.some((el) => !el.paused && el.currentTime > 0);
+
+  const render = () => {
+    const playing = !muted && started && running();
+    if (playing === shownPlaying) return;
+    shownPlaying = playing;
+    button.classList.toggle('muted', !playing);
+    button.setAttribute('aria-label', playing ? 'Mute music' : 'Play music');
+    button.setAttribute('aria-pressed', String(playing));
+  };
 
   const apply = () => {
     const now = performance.now(), dt = Math.min(0.1, (now - last) / 1000); last = now;
     const k = 1 - Math.pow(0.02, dt / CATCH);
     mix += (mixTarget - mix) * k;
-    const on = allowed() && started;
+    const on = !muted && tabOn() && started;
     tracks.forEach((el, i) => {
       const part = i === 0 ? 1 - mix : mix;
       const active = on && part > 0.01;
       el.volume = active ? part * vols[i] * loopEnvelope(el) : 0;
-      if (active && el.paused) el.play().catch(() => {});
+      if (active && el.paused) el.play().catch(() => { started = false; });
       if (!active && !el.paused && started) el.pause();
     });
+    render();
   };
   const timer = setInterval(apply, 50);
 
@@ -64,46 +72,50 @@ export function startMusic({ sad, glad }, button) {
       started = true;
       tracks[1 - lead].play().catch(() => {});
       unbind();
-    }).catch(() => {});
+      render();
+    }).catch(() => {
+      started = false;
+      render();
+    });
   };
 
-  const gestures = ['pointerdown', 'click', 'keydown', 'touchstart'];
-  const onGesture = () => play();
-  const unbind = () => gestures.forEach((g) => {
-    window.removeEventListener(g, onGesture, true);
-    window.removeEventListener(g, onGesture);
-  });
-  gestures.forEach((g) => {
-    window.addEventListener(g, onGesture, { passive: true, capture: true });
-    window.addEventListener(g, onGesture, { passive: true });
-  });
+  const onGesture = (e) => {
+    if (button.contains(e.target)) return;
+    play();
+  };
+  const gestures = ['pointerdown', 'keydown', 'touchstart'];
+  const unbind = () => gestures.forEach((g) => window.removeEventListener(g, onGesture, true));
+  gestures.forEach((g) => window.addEventListener(g, onGesture, { passive: true, capture: true }));
 
   const hide = () => {
     tracks.forEach((el) => { el.pause(); el.volume = 0; });
+    render();
   };
-  const show = () => { if (!muted) play(); };
 
-  document.addEventListener('visibilitychange', () => { if (document.hidden) hide(); else show(); });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) hide();
+    else if (!muted) play();
+  });
   window.addEventListener('pagehide', hide);
-  window.addEventListener('pageshow', show);
-  tracks.forEach((el) => el.addEventListener('canplay', () => { if (!muted && !started) play(); }));
+  window.addEventListener('pageshow', () => { if (!muted) play(); });
 
-  const render = () => {
-    button.classList.toggle('muted', muted);
-    button.setAttribute('aria-label', muted ? 'Play music' : 'Mute music');
-    button.setAttribute('aria-pressed', String(!muted));
-  };
+  button.addEventListener('pointerdown', (e) => e.stopPropagation());
   button.addEventListener('click', (e) => {
     e.stopPropagation();
-    // First click starts audio (browsers block autoplay). Don't treat that as mute.
-    if (!audible() && !muted) {
+    if (muted) {
+      muted = false;
+      localStorage.setItem('aod-muted', '0');
       play();
-      return;
+    } else if (!running()) {
+      // Bars looked live, but the browser had not unlocked audio yet — start, don't mute.
+      play();
+    } else {
+      muted = true;
+      localStorage.setItem('aod-muted', '1');
+      started = false;
+      hide();
     }
-    muted = !muted;
-    localStorage.setItem('aod-muted', muted ? '1' : '0');
     render();
-    if (muted) hide(); else play();
   });
 
   render();

@@ -232,7 +232,14 @@ export class TextDirector {
     tl.set(text, { opacity: 0 });
     if (words.length) tl.set(words, { opacity: 0 });
     if (anim === 'stamp') tl.set(text.querySelector('.stamp'), { opacity: 0 });
-    if (anim === 'split') tl.set(text.querySelectorAll('.half-left,.half-right'), { x: 0 });
+    if (anim === 'split') {
+      const seam = sec.querySelector('.seam');
+      if (seam) {
+        const cur = parseFloat(getComputedStyle(seam).getPropertyValue('--split')) || 1;
+        tl.fromTo(seam, { '--split': cur }, { '--split': 0, duration: 0.55, ease: 'power2.in' }, 0);
+      }
+      tl.set(text.querySelectorAll('.half-left,.half-right'), { x: 0 });
+    }
     if (anim === 'replace') {
       const reps = text.querySelectorAll('.rep');
       reps.forEach((r) => { r._on = false; r.classList.remove('is-on'); r._tl?.kill(); });
