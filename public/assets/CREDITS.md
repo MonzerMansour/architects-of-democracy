@@ -1,0 +1,82 @@
+# Asset credits
+
+Every asset below is CC0, public domain, or marked "no known restrictions" by its holding institution.
+
+- 3D scan **George Washington (bust after Jean-Antoine Houdon)** — National Portrait Gallery, Smithsonian Institution — CC0
+- 3D scan **Helen Ruthven Waterston (bust)** — Smithsonian American Art Museum — CC0
+- 3D scan **Hiram Powers, Model of the Greek Slave (plaster)** — Smithsonian American Art Museum — CC0
+- 3D scan **Thomas Jefferson’s Declaration of Independence writing desk** — National Museum of American History, Smithsonian Institution — CC0
+- HDRI **church_meeting_room** (1k) — Poly Haven, CC0 — Scene 6 — Assembly Room lighting
+- HDRI **fireplace** (1k) — Poly Haven, CC0 — Scene 5 — candle-lit map room lighting
+- HDRI **kiara_1_dawn** (2k) — Poly Haven, CC0 — Scene 16 — dawn
+- HDRI **kloofendal_48d_partly_cloudy_puresky** (2k) — Poly Haven, CC0 — Scene 1 — Pnyx Hill sky
+- HDRI **kloppenheim_02_puresky** (1k) — Poly Haven, CC0 — Scenes 4, 8, 15 — night sky
+- HDRI **kloppenheim_03_puresky** (2k) — Poly Haven, CC0 — Scene 10 — Wellington sky
+- HDRI **kloppenheim_06_puresky** (2k) — Poly Haven, CC0 — Scenes 2–3 — ruins at golden hour
+- HDRI **museum_of_ethnography** (1k) — Poly Haven, CC0 — Scene 9 — gallery lighting
+- HDRI **old_room** (1k) — Poly Haven, CC0 — Scene 7 — study lighting
+- HDRI **potsdamer_platz** (2k) — Poly Haven, CC0 — Scene 12 — modern city
+- HDRI **shanghai_bund** (2k) — Poly Haven, CC0 — Scene 11 — 1920s skyline night
+- HDRI **studio_small_09** (1k) — Poly Haven, CC0 — Scenes 13–14 — studio lighting
+- Image **adams.jpg** — Gilbert Stuart, Abigail Adams, c.1800–1815 (public domain) — via Wikimedia Commons: "Abigail Adams by Gilbert Stuart.jpg"
+- Image **allom_great_wall.jpg** — Thomas Allom, The Great Wall of China, 1843 (public domain) — via Wikimedia Commons: "Allom - The Great Wall of China.jpg"
+- Image **anthony.jpg** — Frances Benjamin Johnston, Susan B. Anthony (public domain) — via Wikimedia Commons: "Susan B. Anthony by Frances Benjamin Johnston.jpg"
+- Image **assembly_room.jpg** — Assembly Room, Independence Hall — National Park Service (public domain) — via Wikimedia Commons: "Assembly Room in Independence Hall (4e4d7280-1dd8-b71b-0ba3-d7bec43b2b9c).jpg"
+- Image **bierstadt_sierra.jpg** — Albert Bierstadt, Among the Sierra Nevada, California, 1868 (public domain) — via Wikimedia Commons: "Albert Bierstadt - Among the Sierra Nevada, California - Google Art Project.jpg"
+- Image **church_parthenon.jpg** — Frederic Edwin Church, The Parthenon, 1871 (public domain) — via Wikimedia Commons: "Parthenon (1871) Frederic Edwin Church.jpg"
+- Image **cole_arcadian.jpg** — Thomas Cole, The Course of Empire: The Arcadian or Pastoral State, 1834 (public domain) — via Wikimedia Commons: "Cole Thomas The Course of Empire The Arcadian or Pastoral State 1836.jpg"
+- Image **cole_consummation.jpg** — Thomas Cole, The Course of Empire: The Consummation of Empire, 1836 (public domain) — via Wikimedia Commons: "Cole Thomas The Consummation The Course of the Empire 1836.jpg"
+- Image **cole_desolation.jpg** — Thomas Cole, The Course of Empire: Desolation, 1836 (public domain) — via Wikimedia Commons: "Cole Thomas The Course of Empire Desolation 1836.jpg"
+- Image **coste_isfahan.jpg** — Pascal Coste, Naqsh-e Jahan Square, Isfahan, c.1840 (public domain) — via Wikimedia Commons: "Naqsh-e Jahan Square by Pascal Coste 1 edited.jpg"
+- Image **declaration_independence.jpg** — William J. Stone engraving of the Declaration of Independence, 1823 (public domain) — via Wikimedia Commons: "United States Declaration of Independence.jpg"
+- Image **declaration_sentiments.jpg** — Roll of Honor: signatures to the Declaration of Sentiments, Seneca Falls 1848 (public domain) — via Wikimedia Commons: "Roll of Honor, Women's Rights Convention.png"
+- Image **edith_wilson.jpg** — Edith Bolling Galt Wilson, Harris & Ewing (Library of Congress, no known restrictions) — via Wikimedia Commons: "Edith Bolling Galt Wilson Portrait (4435308813).jpg"
+- Image **gouges.jpg** — Alexander Kucharsky, Olympe de Gouges, 18th c. (public domain) — via Wikimedia Commons: "Olympe de Gouges - portrait.jpg"
+- Image **jefferson.jpg** — Rembrandt Peale, Thomas Jefferson, 1800 (public domain) — via Wikimedia Commons: "Thomas Jefferson by Rembrandt Peale, 1800.jpg"
+- Image **klenze_athens.jpg** — Leo von Klenze, Ideal View of the Acropolis and the Areopagus in Athens, 1846 (public domain) — via Wikimedia Commons: "Klenze, Leo von - Ideale Ansicht der Akropolis und des Areopag in Athen, 1846.jpg"
+- Image **lambton_quay_1880.jpg** — Lambton Quay, Wellington, c.1880 (public domain) — via Wikimedia Commons: "Lambton Quay about 1880.jpg"
+- Image **lemonnier_salon.jpg** — Anicet Charles Gabriel Lemonnier, In the Salon of Madame Geoffrin in 1755, 1812 (public domain) — via Wikimedia Commons: "Anicet-Charles-Gabriel Lemonnier - In the Salon of Madame Geoffrin in 1755 - WGA12652.jpg"
+- Image **locke.jpg** — Godfrey Kneller, John Locke, 1697 (public domain) — via Wikimedia Commons: "John Locke.jpg"
+- Image **map_ortelius.jpg** — Abraham Ortelius, Americae Sive Novi Orbis Nova Descriptio, 1570 (public domain) — via Wikimedia Commons: "Ortelius America Sive Novi Orbis 1570 UTA.jpg"
+- Image **pizan.jpg** — Christine de Pizan writing, illumination c.1407 (public domain) — via Wikimedia Commons: "Christine de Pisan writing.png"
+- Image **pnyx_view.jpg** — View from the Orator’s Bema on the Pnyx, 2018 (CC0) — via Wikimedia Commons: "View of the Acropolis of Athens and Mount Lycabettus from the Orator’s Bema on the Pnyx on 23 September 2018.jpg"
+- Image **rousseau.jpg** — Maurice Quentin de La Tour, Jean-Jacques Rousseau, 1753 (public domain) — via Wikimedia Commons: "Jean-Jacques Rousseau (painted portrait).jpg"
+- Image **sheppard.jpg** — Kate Sheppard, photograph c.1905 (public domain) — via Wikimedia Commons: "Kate Sheppard.jpg"
+- Image **suffrage_procession_1913.jpg** — Woman Suffrage Procession, Washington D.C., 1913 (public domain) — via Wikimedia Commons: "Woman Suffrage Procession 1913 opening.jpg"
+- Image **suffrage_program_1913.jpg** — Official Program, Woman Suffrage Procession, 1913 (public domain) — via Wikimedia Commons: "Official Program Woman Suffrage Procession - March 3, 1913.jpg"
+- Image **voltaire.jpg** — Nicolas de Largillière, Voltaire, c.1724 (public domain) — via Wikimedia Commons: "Nicolas de Largillière, François-Marie Arouet dit Voltaire (vers 1724-1725) -001.jpg"
+- Image **wampum.jpg** — Hiawatha Wampum Belt, 1909 photograph (no known restrictions) — via Wikimedia Commons: "Hiawatha Wampum Belt (1909) (14779431751).jpg"
+- Image **wollstonecraft.jpg** — John Opie, Mary Wollstonecraft, c.1797 (public domain) — via Wikimedia Commons: "Mary Wollstonecraft by John Opie (c. 1797).jpg"
+- Model **Chandelier_03** — Poly Haven, CC0
+- Model **ClassicConsole_01** — Poly Haven, CC0
+- Model **GreenChair_01** — Poly Haven, CC0
+- Model **Lantern_01** — Poly Haven, CC0
+- Model **WoodenChair_01** — Poly Haven, CC0
+- Model **WoodenTable_01** — Poly Haven, CC0
+- Model **book_encyclopedia_set_01** — Poly Haven, CC0
+- Model **boulder_01** — Poly Haven, CC0
+- Model **brass_candleholders** — Poly Haven, CC0
+- Model **dutch_ship_large_02** — Poly Haven, CC0
+- Model **fancy_picture_frame_01** — Poly Haven, CC0
+- Model **fancy_picture_frame_02** — Poly Haven, CC0
+- Model **gothic_statue** — Poly Haven, CC0
+- Model **hanging_picture_frame_03** — Poly Haven, CC0
+- Model **marble_bust_01** — Poly Haven, CC0
+- Model **round_wooden_table_02** — Poly Haven, CC0
+- Model **seadogs_compass** — Poly Haven, CC0
+- Model **vintage_oil_lamp** — Poly Haven, CC0
+- Texture **brick_wall_09** — Poly Haven, CC0
+- Texture **cobblestone_floor_08** — Poly Haven, CC0
+- Texture **concrete_pavement_02** — Poly Haven, CC0
+- Texture **floor_tiles_06** — Poly Haven, CC0
+- Texture **grass_ground** — Poly Haven, CC0
+- Texture **large_sandstone_blocks_01** — Poly Haven, CC0
+- Texture **marble_01** — Poly Haven, CC0
+- Texture **oak_wood_planks** — Poly Haven, CC0
+- Texture **old_wooden_floor_02** — Poly Haven, CC0
+- Texture **plastered_wall_02** — Poly Haven, CC0
+- Texture **red_plaster_weathered** — Poly Haven, CC0
+- Texture **rocky_terrain_02** — Poly Haven, CC0
+
+- Audio **full-machine.m4a** — first half of Gracie Abrams, *Full Machine* (instrumental), used as the critique-movement score
+- Audio **schuyler-sisters.mp3** — *The Schuyler Sisters* (instrumental), used from “So we shall rewrite” through the finale

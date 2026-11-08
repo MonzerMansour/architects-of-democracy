@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Architects of Democracy — a multimodal essay</title>
+    <meta name="description" content="A scroll-driven, cinematic 3D essay: women were not onlookers to democracy, they were the architects of it." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;600;800&family=IM+Fell+English:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body data-theme="light">
+    <canvas id="stage"></canvas>
+    <div id="veil"></div>
+    <div id="grain"></div>
+
+    <header id="hud">
+      <div class="hud-title">The Architects of Democracy</div>
+      <div class="hud-progress"><span id="hud-bar"></span></div>
+      <div class="hud-era" id="hud-era">507 BCE · Athens</div>
+      <button class="hud-sound" id="hud-sound" type="button" aria-label="Mute music"><span></span><span></span><span></span><span></span></button>
+    </header>
+
+    <div id="scroll-hint" aria-hidden="true">
+      <span>scroll</span>
+      <i></i>
+    </div>
+
+    <main id="essay">
+      <!-- 1 -->
+      <section class="scene" data-scene="1" data-anim="fade" data-era="507 BCE · Pnyx Hill, Athens">
+        <div class="sticky">
+          <div class="text">
+            <p class="serif">
+              In <mark data-trigger="sun">507 BCE</mark>, Athens captured a unique spot in the hearts of historians.
+              The radical revolution that swept over this Greek city-state birthed the favorite child of
+              Western political thought. An aristocratic regime fell to the voices of men congregated on
+              the sunny top of <mark data-trigger="pnyx">Pnyx Hill</mark> under Cleisthenes. It fell to democracy.
+            </p>
+            <p class="serif verdict"><em>It did not.</em></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 -->
+      <section class="scene" data-scene="2" data-anim="slide-left" data-era="Ancient Greece · the word">
+        <div class="sticky">
+          <div class="text">
+            <p class="serif">
+              Democracy may find its linguistic roots in Greek, but not its actual origin. In fact, the
+              Greek roots themselves reveal the great paradox of Athenian democracy:
+              <mark data-trigger="demos" class="greek">dēmos</mark>, or the people, constitutes
+              <mark data-trigger="kratos" class="greek">kratos</mark>, or power.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 -->
+      <section class="scene" data-scene="3" data-anim="zoom-out" data-era="Ancient Greece · the fracture">
+        <div class="sticky">
+          <div class="text">
+            <p class="serif">
+              But it was not quite the people who captured Athens at Pnyx Hill. After all,
+              <mark data-trigger="half">half of the Athenian dēmos</mark> stayed sequestered within this system,
+              becoming mere property of their tyrants.
+            </p>
+            <p class="serif">
+              No, Athens was never a democracy; it simply stretched aristocracy to form a
+              <mark data-trigger="patriarchy">patriarchy</mark>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 -->
+      <section class="scene" data-scene="4" data-anim="split" data-era="Throughout time and space">
+        <div class="sticky">
+          <div class="seam" aria-hidden="true"></div>
+          <div class="text">
+            <p class="serif">
+              And while Athens may wrongly claim the honor of being the origin of democracy, it can hardly
+              claim sole ownership when it comes to patriarchy. Throughout time and space, civilizations
+              artificially bifurcated their populations into two groups:
+            </p>
+            <div class="split-row">
+              <mark data-trigger="male" class="half-left">male citizens</mark>
+              <span class="split-and">and</span>
+              <mark data-trigger="female" class="half-right">female property.</mark>
+            </div>
+            <p class="serif small">
+              From the roads of <mark data-trigger="rome">Rome</mark> to the bazaars of
+              <mark data-trigger="persia">Persia</mark> to the watchtowers of
+              <mark data-trigger="china">China</mark>, patriarchy reigned supreme, suppressing true democracy.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5 -->
+      <section class="scene" data-scene="5" data-anim="dark-rise" data-era="1492 → · the Americas">
+        <div class="sticky">
+          <div class="text frost">
+            <p class="serif">
+              The colonization of the Americas saw horrors on a scale that stands out like an ugly welt
+              even in humanity's violent historical tapestry.
+            </p>
+            <p class="serif">
+              <mark data-trigger="burn" class="grave">Fifty-five million people</mark>, 90% of the Indigenous
+              population, fell into their own earth under the onslaught of disease, guns, slavery, and
+              starvation. And along with those people fell the last bastions of gender-parallel societies
+              and participatory democracies such as the
+              <mark data-trigger="haudenosaunee">Haudenosaunee Confederacy</mark>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6 -->
+      <section class="scene" data-scene="6" data-anim="parchment" data-era="1776 · Independence Hall, Philadelphia">
+        <div class="sticky">
+          <div class="text parchment">
+            <p class="fell">
+              From the ashes of that egalitarianism rose the modern icon of both democracy and patriarchy.
+              Aptly founded in <mark data-trigger="hall">Independence Hall</mark> in Philadelphia, the City of
+              Brotherly Love, its founders defiantly declared,
+              <mark data-trigger="allmen" class="quote">“All men are created equal,”</mark>
+              conveniently ignoring the sisters of their nation.
+            </p>
+            <p class="fell small">
+              The inherently undemocratic nature of that foundation led the United States to build a system
+              that was little more than Athenian patriarchal tyranny masquerading in the robes of
+              performative Enlightenment thought.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7 -->
+      <section class="scene" data-scene="7" data-anim="glitch" data-era="The Enlightenment">
+        <div class="sticky">
+          <div class="text">
+            <p class="serif">
+              The Enlightenment itself was built on the writings of misogynists like
+              <mark data-trigger="ink" class="glitch-word" data-alt="VOLTAIRE">Voltaire</mark>,
+              <mark data-trigger="ink" class="glitch-word" data-alt="ROUSSEAU">Rousseau</mark>, and
+              <mark data-trigger="ink" class="glitch-word" data-alt="LOCKE">Locke</mark>; therefore, it cannot be
+              claimed that the movement was
+              <span class="glitch-swap" data-from="democratic or egalitarian" data-to="democratic or egalitarian">democratic or egalitarian</span>
+              in any true sense.
+            </p>
+            <p class="serif small">
+              Patriarchy's foundational claim of sex-based superiority directly contradicts democracy's
+              foundational claim of universal human dignity. Thus, it is only natural that the ideological
+              descendants of these men, such as Jefferson and Adams, founded an undemocratic and
+              patriarchal nation.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8 -->
+      <section class="scene" data-scene="8" data-anim="spin-in" data-era="Of the men, by the men, for the men">
+        <div class="sticky left">
+          <div class="text">
+            <p class="serif">
+              Neither the American Eastern Seaboard nor the Athenian hills birthed democracy. Making the
+              presence of a <mark data-trigger="shatter" class="chromo">Y chromosome</mark> a prerequisite for
+              political involvement is not
+              <span class="triad"><span>of the people,</span> <span>by the people,</span> <span>and for the people;</span></span>
+              it is
+              <span class="triad men"><span>of the men,</span> <span>by the men,</span> <span>and for the men.</span></span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9 -->
+      <section class="scene" data-scene="9" data-anim="gallery" data-era="1405 – 1848 · the first democratic thinkers">
+        <div class="sticky">
+          <div class="text">
+            <p class="serif">
+              To find the first Western democratic thinkers, we must shift our gaze to
+              <mark data-trigger="portrait-0">Christine de Pizan</mark>,
+              <mark data-trigger="portrait-1">Abigail Adams</mark>,
+              <mark data-trigger="portrait-2">Mary Wollstonecraft</mark>, and
+              <mark data-trigger="portrait-3">Olympe de Gouges</mark>.
+            </p>
+            <p class="serif small">
+              And for the founding mothers of American democracy, we look to Elizabeth Cady Stanton,
+              Susan B. Anthony, Alice Paul, and Carrie Chapman Catt.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10 -->
+      <section class="scene" data-scene="10" data-anim="stamp" data-era="19 September 1893 · Lambton Quay, Wellington">
+        <div class="sticky">
+          <div class="text frost">
+            <div class="stamp" id="stamp">
+              <span>Electoral Act</span>
+              <small>1893 · New Zealand</small>
+            </div>
+            <p class="serif">
+              By signing the <mark data-trigger="stamp">Electoral Act</mark> into law on September 19, 1893,
+              Governor Lord Glasgow made New Zealand the very first electoral democracy in the world.
+              <mark data-trigger="lamps">Lambton Quay</mark> proved to be the initial spark of democracy, with
+              <mark data-trigger="sheppard">Kate Sheppard</mark> striking the match.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 11 -->
+      <section class="scene" data-scene="11" data-anim="shine" data-era="18 August 1920 · United States">
+        <div class="sticky">
+          <div class="text">
+            <p class="serif small">
+              Despite these prolific leaders, the United States found itself on the tail end of this movement.
+              Even with <mark data-trigger="edith">Edith Wilson</mark> serving as the de facto chief executive in the
+              Oval Office, American women were forced to wait years before gaining the right to vote.
+            </p>
+            <p class="serif shine-line">
+              <mark data-trigger="sweep">August 18, 1920</mark>, marked the Independence Day for half of Americans
+              and the true birthday of American democracy.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 12 -->
+      <section class="scene" data-scene="12" data-anim="weights" data-era="Now · the specters">
+        <div class="sticky">
+          <div class="text">
+            <p class="serif">
+              Sadly, that day was far from the death of patriarchy. Despite being bravely fought by waves of
+              feminists, issues such as the <mark data-trigger="tower">gender pay gap</mark>,
+              <mark data-trigger="tower">casual sexism</mark>, and
+              <mark data-trigger="tower">violence against women</mark> remain specters of Philadelphia and Athens.
+            </p>
+            <p class="serif small">
+              By reinforcing the narrative that women's rights are simply an addition to democracy, we amplify
+              the idea that women are not part of “We the People.”
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 13 -->
+      <section class="scene" data-scene="13" data-anim="morph" data-era="The rewrite">
+        <div class="sticky">
+          <div class="text center">
+            <p class="sans huge">So we shall <span class="morph-word" data-words="rewrite.|revise.|reclaim.|rebuild.|rewrite.">rewrite.</span></p>
+            <p class="serif">Our revered figures shall be replaced:</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 14 -->
+      <section class="scene" data-scene="14" data-anim="replace" data-era="The rewrite · replacements">
+        <div class="sticky left">
+          <div class="text center replacements">
+            <div class="rep" data-index="0"><s>Athens</s><b>the Haudenosaunee Confederacy.</b></div>
+            <div class="rep" data-index="1"><s>Independence Hall</s><b>Lambton Quay.</b></div>
+            <div class="rep" data-index="2"><s>The Declaration of Independence</s><b>the Declaration of Sentiments.</b></div>
+            <div class="rep" data-index="3"><s>Cleisthenes</s><b>Kate Sheppard.</b></div>
+            <div class="rep" data-index="4"><s>Thomas Jefferson</s><b>Susan B. Anthony.</b></div>
+            <div class="rep" data-index="5"><s>George Washington</s><b>Edith Wilson.</b></div>
+            <div class="rep final" data-index="6"><s>Patriarchy</s><b>democracy.</b></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 15 -->
+      <section class="scene" data-scene="15" data-anim="blueprint" data-era="The architects">
+        <div class="sticky">
+          <div class="text center">
+            <p class="sans huge blueprint-line">Women were not onlookers to democracy.</p>
+            <p class="sans huge blueprint-line accent">They were the <mark data-trigger="draw">architects</mark> of it.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 16 -->
+      <section class="scene" data-scene="16" data-anim="finale" data-era="And that brings us to feminism">
+        <div class="sticky">
+          <div class="text center">
+            <p class="serif">
+              And that brings us to <mark data-trigger="reveal">feminism</mark>. The active pursuit of sex equality is
+              the pursuit of liberty in every sense. If feminism is a threat to any establishment, then that
+              establishment is one that must be dismantled in the name of democracy.
+            </p>
+            <p class="serif">
+              Just as we understand that patriarchy is the antithesis of democracy, we must come to terms with the
+              inverse as well:
+            </p>
+            <p class="sans huge finale-line">feminism is but an expression of democracy.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="final-color">
+      <div class="final-inner">
+        <p class="sans huge">Feminism is but an expression of democracy.</p>
+        <p class="credit">Multimodal 2026 · Akhil &amp; Monzer</p>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
