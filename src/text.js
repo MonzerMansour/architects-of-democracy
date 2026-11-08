@@ -117,6 +117,8 @@ export class TextDirector {
     const st = this.state[i]; if (st.shown) return; st.shown = true;
     const sec = this.sections[i], text = sec._text, words = sec._words || [];
     st.tl?.kill();
+    st.fly?.kill();
+    st.flown = false;
     text.classList.add('visible');
     const tl = gsap.timeline({ onComplete: () => this.onEvent(i, 'entered') });
     st.tl = tl;
@@ -220,17 +222,24 @@ export class TextDirector {
     const st = this.state[i]; if (!st.shown) return; st.shown = false;
     const sec = this.sections[i], text = sec._text, words = sec._words || [];
     st.tl?.kill();
+    st.fly?.kill();
     if (st.morph) { clearInterval(st.morph); st.morph = null; }
     text.classList.remove('visible');
     text.querySelectorAll('mark').forEach((m) => m.classList.remove('in', 'pulse'));
     const anim = sec.dataset.anim;
-    gsap.set(text, { x: 0, y: 0, rotateX: 0, scale: 1, filter: 'none' });
-    if (words.length) gsap.set(words, { x: 0, y: 0 });
     const tl = gsap.timeline();
     st.tl = tl;
-    tl.to(text, { opacity: 0, duration: 0.5, ease: 'power2.inOut' });
-    tl.set(text, { opacity: 0 });
+    if (anim === 'parchment') {
+      if (!st.flown) tl.to(text, { y: '-120vh', rotateX: -18, duration: 0.85, ease: 'power3.in' });
+      tl.set(text, { opacity: 0, y: 0, rotateX: 0 });
+    } else {
+      gsap.set(text, { x: 0, y: 0, rotateX: 0, scale: 1, filter: 'none' });
+      if (words.length) gsap.set(words, { x: 0, y: 0 });
+      tl.to(text, { opacity: 0, duration: 0.5, ease: 'power2.inOut' });
+      tl.set(text, { opacity: 0 });
+    }
     if (words.length) tl.set(words, { opacity: 0 });
+    st.flown = false;
     if (anim === 'stamp') tl.set(text.querySelector('.stamp'), { opacity: 0 });
     if (anim === 'split') {
       const seam = sec.querySelector('.seam');
@@ -249,6 +258,19 @@ export class TextDirector {
   /** Scroll-scrubbed per-section progress (used by the replacement list + stamp etc). */
   progress(i, local) {
     const sec = this.sections[i];
+    const st = this.state[i];
+    if (sec.dataset.anim === 'parchment' && st.shown) {
+      const text = sec._text;
+      if (!st.flown && local > 0.68) {
+        st.flown = true;
+        st.fly?.kill();
+        st.fly = gsap.to(text, { y: '-120vh', rotateX: -18, duration: 0.9, ease: 'power3.in' });
+      } else if (st.flown && local < 0.55) {
+        st.flown = false;
+        st.fly?.kill();
+        st.fly = gsap.to(text, { y: 0, rotateX: 0, duration: 0.7, ease: 'power3.out' });
+      }
+    }
     if (sec.dataset.anim === 'replace') {
       const reps = sec.querySelectorAll('.rep');
       const idx = Math.min(reps.length - 1, Math.floor(clamp((local - 0.04) / 0.9) * reps.length));
