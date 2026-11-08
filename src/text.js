@@ -224,11 +224,13 @@ export class TextDirector {
     text.classList.remove('visible');
     text.querySelectorAll('mark').forEach((m) => m.classList.remove('in', 'pulse'));
     const anim = sec.dataset.anim;
+    gsap.set(text, { x: 0, y: 0, rotateX: 0, scale: 1, filter: 'none' });
+    if (words.length) gsap.set(words, { x: 0, y: 0 });
     const tl = gsap.timeline();
     st.tl = tl;
     tl.to(text, { opacity: 0, duration: 0.5, ease: 'power2.inOut' });
-    tl.set(text, { opacity: 0, x: 0, y: 0, rotateX: 0, scale: 1, filter: 'none' });
-    if (words.length) tl.set(words, { opacity: 0, x: 0, y: 0 });
+    tl.set(text, { opacity: 0 });
+    if (words.length) tl.set(words, { opacity: 0 });
     if (anim === 'stamp') tl.set(text.querySelector('.stamp'), { opacity: 0 });
     if (anim === 'split') tl.set(text.querySelectorAll('.half-left,.half-right'), { x: 0 });
     if (anim === 'replace') {
