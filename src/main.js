@@ -297,7 +297,7 @@ async function boot() {
   requestAnimationFrame(frame);
   gsap.to(state, { veilExtra: 0, duration: 2.4, ease: 'power2.inOut' });
   music = startMusic({
-    sad: `${import.meta.env.BASE_URL}assets/audio/full-machine.m4a`,
+    sad: `${import.meta.env.BASE_URL}assets/audio/wildflower.m4a`,
     glad: `${import.meta.env.BASE_URL}assets/audio/schuyler-sisters.mp3`,
   }, document.getElementById('hud-sound'));
   window.__essay.music = music;

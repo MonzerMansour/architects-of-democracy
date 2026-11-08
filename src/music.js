@@ -1,6 +1,6 @@
 /**
  * Two looping scores under the essay.
- *   sad  — first half of Gracie Abrams, Full Machine (instrumental)
+ *   sad  — second half of Billie Eilish, WILDFLOWER (instrumental)
  *   glad — The Schuyler Sisters (instrumental)
  * Mix is scroll-driven (0 = sad, 1 = glad) so the handoff is a blend.
  * Playback is paused whenever this tab is not visible.

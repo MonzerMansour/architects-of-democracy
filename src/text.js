@@ -226,11 +226,9 @@ export class TextDirector {
     const anim = sec.dataset.anim;
     const tl = gsap.timeline();
     st.tl = tl;
-    if (anim === 'parchment') tl.to(text, { y: dir > 0 ? '-110vh' : '110vh', rotateX: -20, duration: 0.8, ease: 'power3.in' });
-    else if (anim === 'glitch') tl.to(words, { opacity: 0, x: () => (Math.random() - 0.5) * 80, duration: 0.35, stagger: { each: 0.01, from: 'random' }, ease: 'steps(3)' });
-    else tl.to(text, { opacity: 0, y: dir > 0 ? -28 : 28, filter: 'blur(6px)', duration: 0.55, ease: 'power2.in' });
-    tl.set(text, { opacity: 0 });
-    if (words.length) tl.set(words, { opacity: 0 });
+    tl.to(text, { opacity: 0, duration: 0.5, ease: 'power2.inOut' });
+    tl.set(text, { opacity: 0, x: 0, y: 0, rotateX: 0, scale: 1, filter: 'none' });
+    if (words.length) tl.set(words, { opacity: 0, x: 0, y: 0 });
     if (anim === 'stamp') tl.set(text.querySelector('.stamp'), { opacity: 0 });
     if (anim === 'split') tl.set(text.querySelectorAll('.half-left,.half-right'), { x: 0 });
     if (anim === 'replace') {
