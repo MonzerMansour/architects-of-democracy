@@ -152,6 +152,7 @@ export class Woman {
     this.uniforms.uOpacity.value = c.opacity;
     this.uniforms.uSolid.value = c.solid;
     this.uniforms.uFlow.value = c.flow;
+    this.material.depthWrite = c.solid > 0.55;
     this.aura.material.opacity = clamp(c.opacity * 0.5, 0, 0.2) * (1 - c.solid);
 
     this.phase += dt * (1.2 + c.walk * 4.8);

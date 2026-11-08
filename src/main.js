@@ -258,18 +258,24 @@ function frame() {
   woman.moveTo(w.x, w.y, w.z, dt);
   woman.update(dt, ctx.time);
 
-  // veil + finale colour wash
+  // veil + a late, clean hold card — not a mid-scene gold flash over the copy
   veil.style.opacity = clamp(veilAmt + state.veilExtra).toFixed(3);
+  const endSec = sections[N - 1];
   if (state.active === N - 1) {
-    const wash = remap(local, 0.62, 0.95);
-    finalColor.style.opacity = smooth(wash).toFixed(3);
-    finalColor.style.pointerEvents = wash > 0.9 ? 'auto' : 'none';
-  } else if (finalColor.style.opacity !== '0') finalColor.style.opacity = '0';
+    const wash = remap(local, 0.9, 1);
+    const op = smooth(wash);
+    finalColor.style.opacity = op.toFixed(3);
+    finalColor.style.pointerEvents = op > 0.85 ? 'auto' : 'none';
+    endSec.classList.toggle('ending', op > 0.02);
+  } else {
+    if (finalColor.style.opacity !== '0') finalColor.style.opacity = '0';
+    endSec.classList.remove('ending');
+  }
 
   cursorFx.tick(dt, ctx.time);
   // sad score through the critique; blend into Schuyler Sisters as we rewrite
   music?.setMix(state.active < 11 ? 0 : state.active === 11 ? remap(local, 0.4, 1) : 1);
-  post.render(dt, ctx.time, state.active === N - 1 ? (scenes[N - 1]?.reveal || 0) * 0.4 : 0);
+  post.render(dt, ctx.time, 0);
   requestAnimationFrame(frame);
 }
 

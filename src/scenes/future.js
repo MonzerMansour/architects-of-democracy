@@ -125,8 +125,8 @@ export function sceneFinale(ctx) {
   let reveal = 0, revealTarget = 0;
   const api = {
     name: 'Feminism is democracy', theme: 'light', bg: '#fff3d6', fog: ['#fff3d6', 40, 240], group, transitionIn: 'fade',
-    env: { id: 'kloppenheim_03_puresky', background: true, intensity: 1.2, bgIntensity: 1.1, rotation: -1.2 },
-    grade: { saturation: 1.05, contrast: 1.0, warmth: 0.15, bloom: 0.5 },
+    env: { id: 'kloppenheim_03_puresky', background: true, intensity: 1.0, bgIntensity: 0.85, rotation: -1.2 },
+    grade: { saturation: 1.05, contrast: 1.0, warmth: 0.15, bloom: 0.18 },
     camera(local, cam, target) {
       const t = smooth(clamp(local / 0.7));
       cam.position.set(lerp(-3, 0, t), lerp(1.8, 1.5, t), lerp(10, 4.6, t));
@@ -138,7 +138,6 @@ export function sceneFinale(ctx) {
       reveal = lerp(reveal, revealTarget, dt * 1.2);
       motes.rotation.y = time * 0.04;
       api.reveal = reveal;
-      api.env.intensity = 1.2 + reveal * 0.5;
     },
     woman(local) {
       const turnT = remap(local, 0.05, 0.35);

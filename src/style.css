@@ -220,7 +220,7 @@ body[data-theme='dark'] { --frost: rgba(10, 8, 6, 0.46); }
   font-weight: 500;
   margin: 0 0 1.1em;
 }
-.serif.small { font-size: clamp(17px, 1.7vw, 22px); color: var(--muted); font-weight: 400; }
+.serif.small { font-size: clamp(22px, 2.6vw, 34px); color: var(--muted); font-weight: 400; }
 .sans { font-family: 'Inter', system-ui, sans-serif; }
 .sans.huge {
   font-size: clamp(34px, 5.4vw, 76px);
@@ -230,7 +230,7 @@ body[data-theme='dark'] { --frost: rgba(10, 8, 6, 0.46); }
   margin: 0 0 0.5em;
 }
 .fell { font-family: 'IM Fell English', 'Cormorant Garamond', serif; font-size: clamp(20px, 2.2vw, 30px); line-height: 1.5; margin: 0 0 1em; }
-.fell.small { font-size: clamp(16px, 1.5vw, 20px); opacity: 0.8; }
+.fell.small { font-size: clamp(20px, 2.2vw, 30px); opacity: 0.8; }
 .verdict { font-size: clamp(34px, 4.6vw, 64px); font-weight: 600; margin-top: 0.4em; }
 .greek { font-style: italic; letter-spacing: 0.02em; }
 
@@ -433,6 +433,12 @@ body[data-theme='dark'] .stamp { color: #ff4a57; border-color: #ff4a57; mix-blen
   padding: 8vw;
 }
 #final-color .credit { font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.7; margin-top: 2em; }
+.scene.ending .text {
+  opacity: 0 !important;
+  filter: none !important;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
 
 @media (max-width: 720px) {
   #hud { padding: 14px 16px; font-size: 9px; }
