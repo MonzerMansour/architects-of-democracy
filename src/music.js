@@ -4,21 +4,26 @@
  *   glad — The Schuyler Sisters (instrumental)
  * Mix is scroll-driven (0 = sad, 1 = glad) so the handoff is a blend.
  * Playback is paused whenever this tab is not visible.
+ *
+ * Unmuted autoplay is blocked in most browsers. We try it on load, keep a muted
+ * buffer running, then unmute on the first real click/key so the first gesture
+ * starts the score instead of pausing it. The speaker stays in the paused look
+ * until unmuted audio is actually running.
  */
 const VOL_SAD = 0.2;
 const VOL_GLAD = 0.16;
-const CATCH = 1.35; // seconds to catch a jumped mix (__go, fast scroll)
+const CATCH = 1.35;
 
 function looping(src) {
   const el = new Audio(src);
   el.loop = true;
   el.preload = 'auto';
   el.playsInline = true;
+  el.muted = true;
   el.volume = 0;
   return el;
 }
 
-/** Soften the loop point so a mid-phrase cut doesn't click. */
 function loopEnvelope(el, fade = 1.5) {
   const d = el.duration;
   if (!d || !Number.isFinite(d)) return 1;
@@ -28,20 +33,26 @@ function loopEnvelope(el, fade = 1.5) {
   return 1;
 }
 
+function playSafe(el) {
+  const p = el.play();
+  if (!p) return Promise.resolve(true);
+  return p.then(() => true).catch((err) => (err && err.name === 'AbortError' ? true : false));
+}
+
 export function startMusic({ sad, glad }, button) {
   const tracks = [looping(sad), looping(glad)];
   const vols = [VOL_SAD, VOL_GLAD];
   let mixTarget = 0, mix = 0;
-  let muted = localStorage.getItem('aod-muted') === '1';
-  let started = false;
+  let muted = false;
+  let unlocked = false;
   let last = performance.now();
   let shownPlaying = false;
 
   const tabOn = () => !document.hidden && document.visibilityState === 'visible';
-  const running = () => tracks.some((el) => !el.paused && el.currentTime > 0);
+  const live = () => tracks.some((el) => !el.paused && !el.muted);
 
   const render = () => {
-    const playing = !muted && started && running();
+    const playing = unlocked && !muted && (live() || tracks.some((el) => !el.paused));
     if (playing === shownPlaying) return;
     shownPlaying = playing;
     button.classList.toggle('muted', !playing);
@@ -53,75 +64,82 @@ export function startMusic({ sad, glad }, button) {
     const now = performance.now(), dt = Math.min(0.1, (now - last) / 1000); last = now;
     const k = 1 - Math.pow(0.02, dt / CATCH);
     mix += (mixTarget - mix) * k;
-    const on = !muted && tabOn() && started;
+    const on = unlocked && !muted && tabOn();
     tracks.forEach((el, i) => {
       const part = i === 0 ? 1 - mix : mix;
       const active = on && part > 0.01;
+      el.muted = !on;
       el.volume = active ? part * vols[i] * loopEnvelope(el) : 0;
-      if (active && el.paused) el.play().catch(() => { started = false; });
-      if (!active && !el.paused && started) el.pause();
+      if (on && el.paused) playSafe(el);
+      if (!on && !el.paused && unlocked) el.pause();
     });
     render();
   };
   const timer = setInterval(apply, 50);
 
-  const play = () => {
-    if (muted || !tabOn()) return;
-    const lead = mix < 0.5 ? 0 : 1;
-    tracks[lead].play().then(() => {
-      started = true;
-      tracks[1 - lead].play().catch(() => {});
-      unbind();
-      render();
-    }).catch(() => {
-      started = false;
-      render();
-    });
+  const primeMuted = () => {
+    tracks.forEach((el) => { el.muted = true; playSafe(el); });
+  };
+
+  const unlock = () => {
+    if (muted) return;
+    unlocked = true;
+    tracks.forEach((el) => { el.muted = false; playSafe(el); });
+    render();
   };
 
   const onGesture = (e) => {
     if (button.contains(e.target)) return;
-    play();
+    if (unlocked) return;
+    unlock();
   };
-  const gestures = ['pointerdown', 'keydown', 'touchstart'];
-  const unbind = () => gestures.forEach((g) => window.removeEventListener(g, onGesture, true));
-  gestures.forEach((g) => window.addEventListener(g, onGesture, { passive: true, capture: true }));
+  ['pointerdown', 'keydown', 'touchstart'].forEach((g) => {
+    window.addEventListener(g, onGesture, { capture: true, passive: true });
+  });
 
   const hide = () => {
-    tracks.forEach((el) => { el.pause(); el.volume = 0; });
-    render();
+    tracks.forEach((el) => { el.pause(); el.volume = 0; el.muted = true; });
   };
 
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) hide();
-    else if (!muted) play();
+    else if (unlocked && !muted) tracks.forEach((el) => { el.muted = false; playSafe(el); });
   });
   window.addEventListener('pagehide', hide);
-  window.addEventListener('pageshow', () => { if (!muted) play(); });
 
   button.addEventListener('pointerdown', (e) => e.stopPropagation());
   button.addEventListener('click', (e) => {
+    e.preventDefault();
     e.stopPropagation();
-    if (muted) {
+    // If nothing is actually audible, this click starts the score — never mute-first.
+    if (!unlocked || muted || !live()) {
       muted = false;
-      localStorage.setItem('aod-muted', '0');
-      play();
-    } else if (!running()) {
-      // Bars looked live, but the browser had not unlocked audio yet — start, don't mute.
-      play();
-    } else {
-      muted = true;
-      localStorage.setItem('aod-muted', '1');
-      started = false;
-      hide();
+      unlock();
+      return;
     }
+    muted = true;
+    hide();
     render();
   });
 
   render();
-  play();
+  primeMuted();
+  // Try unmuted autoplay (works when the browser treats this load as a gesture).
+  Promise.allSettled(tracks.map((el) => { el.muted = false; return playSafe(el); }))
+    .then((results) => {
+      const ok = results.some((r) => r.status === 'fulfilled' && r.value && live());
+      if (ok) { unlocked = true; render(); }
+      else primeMuted();
+    });
+
   return {
     setMix(t) { mixTarget = Math.max(0, Math.min(1, t)); },
     _timer: timer,
+    status() {
+      return {
+        unlocked, muted, shownPlaying, live: live(),
+        tracks: tracks.map((el) => ({ paused: el.paused, muted: el.muted, vol: +el.volume.toFixed(3), t: +el.currentTime.toFixed(2), err: el.error?.message || null })),
+      };
+    },
   };
 }

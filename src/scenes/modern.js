@@ -167,14 +167,16 @@ export function sceneReplace(ctx) {
   pairs.forEach(([o, n]) => {
     const a = o(), b = n();
     a.position.y += 0.6; b.position.y += 0.6; a.visible = b.visible = false;
-    a.userData.s = a.scale.x; b.userData.s = b.scale.x; a.scale.setScalar(0.0001); b.scale.setScalar(0.0001);
+    a.userData.s = a.scale.x; b.userData.s = b.scale.x;
+    a.userData.y = a.position.y; b.userData.y = b.position.y;
+    a.scale.setScalar(0.0001); b.scale.setScalar(0.0001);
     group.add(a, b); olds.push(a); news.push(b);
   });
   const sparks = particles(600, [8, 6, 8], '#ffd27a', 0.1, 14, ctx.glowTex); sparks.material.opacity = 0; sparks.position.y = 2; group.add(sparks);
 
-  // Per step (seconds): the original grows in and holds alone, then is struck away as its replacement arrives.
+  // Per step (seconds): original snaps in, then is destroyed as the replacement arrives.
   // Keep SWAP in sync with the strike timing of `.rep` rows in text.js.
-  const GROW = 0.55, SWAP = 2.0, OUT = 0.55;
+  const GROW = 0.22, SWAP = 0.42, OUT = 0.28;
   const easeOut = (t) => 1 - Math.pow(1 - clamp(t), 3);
   let step = -1, stepT = 0, spark = 0, sparked = false, camA = 0;
   const api = {
@@ -199,16 +201,21 @@ export function sceneReplace(ctx) {
         const on = i === step;
         const out = clamp((stepT - SWAP) / OUT);
         const s = on ? easeOut(stepT / GROW) * (1 - out) * o.userData.s : 0;
-        o.visible = on && out < 1; o.scale.setScalar(Math.max(0.0001, s));
-        o.rotation.y = camA + sway + out * 4; o.position.y = 0.6 + out * out * 3;
+        o.visible = on && out < 1;
+        o.scale.set(Math.max(0.0001, s * (1 + out * 0.9)), Math.max(0.0001, s * (1 - out * 0.85)), Math.max(0.0001, s));
+        o.rotation.x = out * 1.6;
+        o.rotation.y = camA + sway + out * 12;
+        o.rotation.z = out * (i % 2 ? 2.2 : -2.2);
+        o.position.y = (o.userData.y ?? 0.6) + out * out * 9;
       });
       news.forEach((n, i) => {
         const on = i === step;
-        const t = clamp((stepT - SWAP - 0.1) / 0.6);
+        const t = clamp((stepT - SWAP) / OUT);
         const e = on ? easeOut(t) : 0;
-        const s = e * n.userData.s * (1 + Math.sin(t * Math.PI) * 0.1);
+        const s = e * n.userData.s * (1 + Math.sin(t * Math.PI) * 0.08);
         n.visible = on && e > 0; n.scale.setScalar(Math.max(0.0001, s));
-        n.rotation.y = camA + (1 - e) * -1.5 + sway;
+        n.rotation.y = camA + (1 - e) * -1.2 + sway;
+        n.position.y = n.userData.y ?? 0.6;
       });
       spark = Math.max(0, spark - dt);
       sparks.material.opacity = spark; sparks.scale.setScalar(1 + (1 - spark) * 2); sparks.rotation.y = time;

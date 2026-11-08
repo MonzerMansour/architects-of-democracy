@@ -58,9 +58,10 @@ function applyEnv(active) {
   if (!spec) { env.id = null; env.tex = null; env.bgTex = null; scene.environment = null; scene.background = null; return; }
   const key = `${spec.id}:${usesSky(spec) ? 'sky' : 'hdr'}`;
   if (env.id !== key) {
-    env.id = key; env.tex = null; env.bgTex = null;
+    env.id = key;
     assets.hdri(spec.id).then((tex) => { if (env.id === key) env.tex = tex; }).catch((e) => console.warn('hdri failed', e));
     if (usesSky(spec)) assets.sky(spec.id).then((tex) => { if (env.id === key) env.bgTex = tex; }).catch((e) => console.warn('sky failed', e));
+    else env.bgTex = null;
   }
   env.wantBg = !!spec.background;
   scene.backgroundBlurriness = spec.blur ?? 0;
@@ -100,7 +101,10 @@ function ensure(i) {
   return scenes[i];
 }
 
-let music;
+const music = startMusic({
+  sad: `${import.meta.env.BASE_URL}assets/audio/wildflower.m4a`,
+  glad: `${import.meta.env.BASE_URL}assets/audio/schuyler-sisters.mp3`,
+}, document.getElementById('hud-sound'));
 const director = new TextDirector(sections, {
   onTrigger(i, name) {
     const s = ensure(i);
@@ -108,7 +112,7 @@ const director = new TextDirector(sections, {
   },
   onEvent(i, type, payload) {
     const s = ensure(i);
-    if (type === 'stamp') { s?.shake?.(); flashVeil(0.6, 0.25); }
+    if (type === 'stamp') { s?.shake?.(); }
     if (type === 'replace') { s?.setStep?.(payload); }
   },
 });
@@ -215,11 +219,11 @@ function frame() {
     const kind = toScene.transitionIn;
     const t = trans.t;
     const bell = Math.sin(t * Math.PI);
-    if (kind === 'fade') veilAmt = Math.pow(bell, 0.8);
-    else if (kind === 'spin') { state.roll = smooth(t) * Math.PI * 2 * (trans.to > trans.from ? 1 : -1); state.fovBump = bell * 30; veilAmt = Math.pow(bell, 3) * 0.7; }
-    else if (kind === 'zoom') { state.fovBump = (t < 0.5 ? -t * 2 : (1 - t) * 2) * -25; veilAmt = Math.pow(bell, 4); }
-    else if (kind === 'stamp') veilAmt = Math.pow(bell, 2.5) * 0.9;
-    else veilAmt = Math.pow(bell, 6); // cut: a quick blink
+    if (kind === 'fade') veilAmt = Math.pow(bell, 0.8) * (toScene.theme === 'light' ? 0.28 : 0.85);
+    else if (kind === 'spin') { state.roll = smooth(t) * Math.PI * 2 * (trans.to > trans.from ? 1 : -1); state.fovBump = bell * 18; veilAmt = Math.pow(bell, 3) * 0.35; }
+    else if (kind === 'zoom') { state.fovBump = (t < 0.5 ? -t * 2 : (1 - t) * 2) * -18; veilAmt = Math.pow(bell, 4) * 0.45; }
+    else if (kind === 'stamp') veilAmt = Math.pow(bell, 2.5) * 0.22;
+    else veilAmt = Math.pow(bell, 6) * 0.35; // cut: a quick blink
     activate(t < 0.5 ? trans.from : trans.to);
   } else {
     activate(i);
@@ -262,7 +266,7 @@ function frame() {
   veil.style.opacity = clamp(veilAmt + state.veilExtra).toFixed(3);
   const endSec = sections[N - 1];
   if (state.active === N - 1) {
-    const wash = remap(local, 0.9, 1);
+    const wash = remap(local, 0.96, 1);
     const op = smooth(wash);
     finalColor.style.opacity = op.toFixed(3);
     finalColor.style.pointerEvents = op > 0.85 ? 'auto' : 'none';
@@ -296,11 +300,6 @@ async function boot() {
   await Promise.race([Promise.allSettled([...waits, settled]), new Promise((r) => setTimeout(r, 8000))]);
   requestAnimationFrame(frame);
   gsap.to(state, { veilExtra: 0, duration: 2.4, ease: 'power2.inOut' });
-  music = startMusic({
-    sad: `${import.meta.env.BASE_URL}assets/audio/wildflower.m4a`,
-    glad: `${import.meta.env.BASE_URL}assets/audio/schuyler-sisters.mp3`,
-  }, document.getElementById('hud-sound'));
-  window.__essay.music = music;
 }
 boot();
 
@@ -310,7 +309,7 @@ loading.listeners.add(({ pending, done }) => {
 });
 
 // small debug handle (harmless in production): window.__essay.woman.set({ opacity: 1 })
-window.__essay = { woman, scenes, state, ctx, post, env };
+window.__essay = { woman, scenes, state, ctx, post, env, music };
 window.__go = (i, local = 0.5) => {
   const start = layout[i].top;
   const end = i + 1 < N ? layout[i + 1].top : start + layout[i].h - window.innerHeight;

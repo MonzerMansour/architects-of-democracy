@@ -98,8 +98,8 @@ export function sceneBlueprint(ctx) {
 /* ---------------------------------------------------------------- Scene 16: boundless */
 export function sceneFinale(ctx) {
   const group = new THREE.Group();
-  group.add(new THREE.HemisphereLight('#ffffff', '#ffe7b8', 0.8));
-  const key = new THREE.DirectionalLight('#fff4de', 2.6); key.position.set(6, 10, 8); key.castShadow = true; key.shadow.mapSize.set(2048, 2048);
+  group.add(new THREE.HemisphereLight('#fff6e8', '#ffe7b8', 0.55));
+  const key = new THREE.DirectionalLight('#fff4de', 1.7); key.position.set(6, 10, 8); key.castShadow = true; key.shadow.mapSize.set(2048, 2048);
   key.shadow.camera.left = -12; key.shadow.camera.right = 12; key.shadow.camera.top = 12; key.shadow.camera.bottom = -12; key.shadow.bias = -0.0004; key.shadow.normalBias = 0.02; group.add(key);
   // bright marble forecourt
   group.add(groundPatch('marble_01', { width: 140, depth: 80, z: -10, repeat: [40, 22], fade: 0.5, light: [0.72, 0.68, 0.6] }));
@@ -120,13 +120,13 @@ export function sceneFinale(ctx) {
   for (let i = 0; i < 10; i++) { const t = makeOliveTree(900 + i, 0.9 + r() * 0.6); const a = r() * Math.PI * 2, d = 20 + r() * 12; t.position.set(Math.cos(a) * d, -0.1, Math.sin(a) * d); group.add(t); }
   place(group, assets.model('boulder_01'), { height: 0.8, position: [-6, -0.1, 4], rotation: [0, 1, 0] });
   place(group, assets.model('boulder_01'), { height: 1.1, position: [7, -0.1, -3], rotation: [0, 2.3, 0] });
-  const motes = particles(800, [40, 20, 40], '#ffd27a', 0.1, 16, ctx.glowTex); motes.material.opacity = 0.5; motes.position.y = 6; group.add(motes);
+  const motes = particles(800, [40, 20, 40], '#ffd27a', 0.1, 16, ctx.glowTex); motes.material.opacity = 0.22; motes.position.y = 6; group.add(motes);
 
   let reveal = 0, revealTarget = 0;
   const api = {
     name: 'Feminism is democracy', theme: 'light', bg: '#fff3d6', fog: ['#fff3d6', 40, 240], group, transitionIn: 'fade',
-    env: { id: 'kloppenheim_03_puresky', background: true, intensity: 1.0, bgIntensity: 0.85, rotation: -1.2 },
-    grade: { saturation: 1.05, contrast: 1.0, warmth: 0.15, bloom: 0.18 },
+    env: { id: 'kloppenheim_03_puresky', background: true, intensity: 0.72, bgIntensity: 0.62, rotation: -1.2 },
+    grade: { saturation: 1.02, contrast: 1.0, warmth: 0.12, bloom: 0.08, grain: 0.016 },
     camera(local, cam, target) {
       const t = smooth(clamp(local / 0.7));
       cam.position.set(lerp(-3, 0, t), lerp(1.8, 1.5, t), lerp(10, 4.6, t));

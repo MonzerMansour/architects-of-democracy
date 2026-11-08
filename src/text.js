@@ -173,16 +173,13 @@ export class TextDirector {
         tl.fromTo(words, { opacity: 0, y: 14, filter: 'blur(5px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, stagger: this.staggerMarks(i, 0.04), ease: 'power2.out' });
         break;
       case 'stamp': {
-        const stamp = text.querySelector('.stamp');
+        const stamp = sec.querySelector('.stamp');
         tl.fromTo(stamp, { opacity: 0, scale: 6, rotate: -12 }, { opacity: 0.95, scale: 1, rotate: -12, duration: 0.35, ease: 'power4.in', onComplete: () => this.onEvent(i, 'stamp') });
-        tl.fromTo(text, { x: 0 }, { x: 0, duration: 0.5, ease: 'rough({strength: 3, points: 20, randomize: true})' });
-        tl.fromTo(words, { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 0.5, stagger: this.staggerMarks(i, 0.02), ease: 'power3.out' }, '-=0.3');
+        tl.fromTo(words, { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: this.staggerMarks(i, 0.02), ease: 'power2.out' }, '-=0.15');
         break;
       }
       case 'shine': {
-        tl.fromTo(words, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.9, stagger: this.staggerMarks(i, 0.03) });
-        const shine = text.querySelectorAll('.shine-line .w');
-        tl.fromTo(shine, { backgroundPosition: '100% 0' }, { backgroundPosition: '-10% 0', duration: 2.2, stagger: 0.03, ease: 'power2.inOut' }, '-=0.55');
+        tl.fromTo(words, { opacity: 0 }, { opacity: 1, duration: 0.9, stagger: this.staggerMarks(i, 0.03) });
         break;
       }
       case 'weights':
@@ -240,7 +237,7 @@ export class TextDirector {
     }
     if (words.length) tl.set(words, { opacity: 0 });
     st.flown = false;
-    if (anim === 'stamp') tl.set(text.querySelector('.stamp'), { opacity: 0 });
+    if (anim === 'stamp') tl.to(sec.querySelector('.stamp'), { opacity: 0, duration: 0.5, ease: 'power2.inOut' }, 0);
     if (anim === 'split') {
       const seam = sec.querySelector('.seam');
       if (seam) {
@@ -280,16 +277,15 @@ export class TextDirector {
           rep._on = true;
           rep.classList.add('is-on');
           const s = rep.querySelector('s'), b = rep.querySelector('b');
-          // old name alone → hold → strike (at 3D swap, see sceneReplace SWAP) → new name
+          // old name in, then immediately struck through as the replacement slams in
           rep._tl?.kill();
           rep._tl = gsap.timeline()
             .set(b, { opacity: 0 })
             .set(s, { '--strike': 0, opacity: 1 })
-            .fromTo(rep, { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.5, ease: 'power3.out' })
-            .to(s, { '--strike': 1, duration: 0.4, ease: 'power2.in' }, 1.6)
-            .to(s, { opacity: 0.45, duration: 0.3 }, 2.0)
-            .fromTo(b, { opacity: 0, scale: 1.8, x: 30, filter: 'blur(6px)' }, { opacity: 1, scale: 1, x: 0, filter: 'blur(0px)', duration: 0.45, ease: 'back.out(3)' }, 2.05)
-            .fromTo(rep, { x: 0 }, { x: 0, duration: 0.3, ease: 'rough({strength: 2, points: 12, randomize: true})' }, 2.0);
+            .fromTo(rep, { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.22, ease: 'power3.out' })
+            .to(s, { '--strike': 1, duration: 0.18, ease: 'power2.in' }, 0.28)
+            .to(s, { opacity: 0.4, duration: 0.12 }, 0.42)
+            .fromTo(b, { opacity: 0, scale: 1.6, x: 18, filter: 'blur(4px)' }, { opacity: 1, scale: 1, x: 0, filter: 'blur(0px)', duration: 0.28, ease: 'back.out(2)' }, 0.42);
           this.onEvent(i, 'replace', k);
           if (k === idx) gsap.to(Array.from(reps).filter((r) => r !== rep && r._on), { opacity: 0.35, duration: 0.3 });
         } else if (!want && rep._on) {

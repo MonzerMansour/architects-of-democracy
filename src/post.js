@@ -92,7 +92,7 @@ const GradeShader = {
     }`,
 };
 
-const DEFAULTS = { saturation: 1, contrast: 1, warmth: 0, sepia: 0, vignette: 1, bloom: 1, aberration: 1, veil: 1.12, lift: 0.006, paint: 0.14, aperture: 0.004, maxblur: 0.003, brush: 1.8, ink: 0.9, split: 0 };
+const DEFAULTS = { saturation: 1, contrast: 1, warmth: 0, sepia: 0, vignette: 1, bloom: 1, aberration: 1, veil: 1.12, lift: 0.006, paint: 0.14, aperture: 0.004, maxblur: 0.003, brush: 1.8, ink: 0.9, split: 0, grain: 0.045 };
 
 export class Post {
   constructor(renderer, scene, camera) {
@@ -131,12 +131,16 @@ export class Post {
   setFocus(distance) { this.focus = distance; }
   render(dt, time, extraBloom = 0) {
     const k = 1 - Math.pow(0.02, dt);
-    for (const key in this.target) this.cur[key] = lerp(this.cur[key], this.target[key], k);
+    for (const key in this.target) {
+      const drop = key === 'bloom' && this.target[key] < this.cur[key];
+      this.cur[key] = lerp(this.cur[key], this.target[key], drop ? 1 - Math.pow(0.0002, dt) : k);
+    }
     const u = this.grade.uniforms;
     u.uTime.value = time;
     u.uSaturation.value = this.cur.saturation; u.uContrast.value = this.cur.contrast; u.uWarmth.value = this.cur.warmth;
     u.uSepia.value = this.cur.sepia; u.uVignette.value = this.cur.vignette; u.uAberration.value = this.cur.aberration;
     u.uVeil.value = this.cur.veil; u.uLift.value = this.cur.lift; u.uPaint.value = this.cur.paint; u.uSplit.value = this.cur.split;
+    u.uGrain.value = this.cur.grain ?? 0.045;
     this.bloom.strength = 0.3 * this.cur.bloom + extraBloom;
     const pu = this.paint.uniforms, pr = this.renderer.getPixelRatio();
     pu.uRadius.value = 4.5 * pr * this.cur.brush; pu.uInk.value = this.cur.ink; pu.uMix.value = Math.min(1, this.cur.brush * 4);

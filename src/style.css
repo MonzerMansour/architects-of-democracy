@@ -35,6 +35,7 @@ body[data-theme='dark'] {
 
 body[data-theme='dark'] .text { text-shadow: 0 2px 30px rgba(0, 0, 0, 0.65); }
 body[data-theme='light'] .text { text-shadow: 0 1px 24px rgba(255, 255, 255, 0.55); }
+body[data-theme='light'] #grain { opacity: 0.035; mix-blend-mode: multiply; }
 
 #stage {
   position: fixed;
@@ -335,11 +336,13 @@ mark.quote .w, .quote mark .w { padding-right: 0.2em; }
 .triad span { display: inline-block; margin-right: 0.35em; }
 .triad.men span { font-weight: 700; color: #ffb37f; }
 
-/* Scene 10 stamp */
+/* Scene 10 stamp — sits on the cobbles, not over the copy */
 .stamp {
   position: absolute;
-  top: 8vh;
-  right: 6vw;
+  left: 6vw;
+  bottom: 11vh;
+  top: auto;
+  right: auto;
   transform: rotate(-12deg) scale(6);
   opacity: 0;
   border: 6px double #a8222b;
@@ -354,21 +357,17 @@ mark.quote .w, .quote mark .w { padding-right: 0.2em; }
   text-align: center;
   mix-blend-mode: multiply;
   pointer-events: none;
+  z-index: 5;
   mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.6 -0.25'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.6 -0.25'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 body[data-theme='dark'] .stamp { color: #ff4a57; border-color: #ff4a57; mix-blend-mode: screen; }
 .stamp small { display: block; font-size: 0.45em; letter-spacing: 0.4em; font-weight: 600; margin-top: 4px; }
 
-/* Scene 11 shine — on each word so split spans stay visible */
+/* Scene 11 shine — keep the glyphs solid so they never flash empty/white */
 .shine-line { font-weight: 600; }
 .shine-line .w {
-  background-image: linear-gradient(100deg, currentColor 38%, #fff6c9 50%, currentColor 62%);
-  background-size: 240% 100%;
-  background-position: 100% 0;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 18px rgba(255, 246, 201, 0.55);
 }
 
 /* Scene 13 morph */
@@ -425,7 +424,7 @@ body[data-theme='dark'] .stamp { color: #ff4a57; border-color: #ff4a57; mix-blen
 #final-color {
   position: fixed;
   inset: 0;
-  background: var(--suffrage);
+  background: #f5efe3;
   opacity: 0;
   pointer-events: none;
   z-index: 6;
@@ -448,7 +447,7 @@ body[data-theme='dark'] .stamp { color: #ff4a57; border-color: #ff4a57; mix-blen
   #hud { padding: 14px 16px; font-size: 9px; }
   .hud-era { min-width: 0; }
   .sticky { padding: 0 6vw; }
-  .stamp { top: 4vh; right: 4vw; }
+  .stamp { left: 6vw; bottom: 8vh; top: auto; right: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {

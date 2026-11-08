@@ -140,11 +140,11 @@ export function sceneQuay(ctx) {
   let shake = 0, lampsOn = 0, lampsTarget = 0, petalAmt = 0;
   return {
     name: 'Lambton Quay, 19 September 1893', theme: 'light', bg: '#e5d3b8', fog: ['#e5d3b8', 40, 140], group, transitionIn: 'stamp',
-    env: { id: 'kiara_1_dawn', background: true, intensity: 1.0, bgIntensity: 1.0, rotation: 2.8 },
-    grade: { saturation: 0.9, contrast: 1.1, warmth: 0.3, sepia: 0.3, bloom: 0.7, veil: 1.3, vignette: 1.4 },
+    env: { id: 'kiara_1_dawn', background: true, intensity: 0.85, bgIntensity: 0.72, rotation: 2.8 },
+    grade: { saturation: 0.9, contrast: 1.05, warmth: 0.3, sepia: 0.3, bloom: 0.18, veil: 1.12, vignette: 1.4, grain: 0.02 },
     camera(local, cam, target) {
       const z = lerp(26, -40, local);
-      const sx = (Math.random() - 0.5) * shake, sy = (Math.random() - 0.5) * shake;
+      const sx = (Math.random() - 0.5) * shake * 0.35, sy = (Math.random() - 0.5) * shake * 0.35;
       // Ride the left of the street and hop the tram instead of clipping through it.
       const over = smooth(clamp(1 - Math.abs(z - tram.position.z) / 10));
       cam.position.set(-1.9 - over * 0.45 + sx, 2.45 + over * 2.3 + sy, z);
@@ -165,11 +165,11 @@ export function sceneQuay(ctx) {
       return { x: -1.6, y: 0, z, scale: 1, facing: Math.PI, walk: 1, beckon: 0, point: 0, opacity: 0.14, solid: 0, flow: 1.2 };
     },
     triggers: {
-      stamp: () => { shake = 1.2; },
+      stamp: () => { shake = 0.35; },
       lamps: () => { lampsTarget = 1; },
       sheppard: () => { petalAmt = 1; },
     },
-    shake: () => { shake = 1.2; },
+    shake: () => { shake = 0.35; },
   };
 }
 
