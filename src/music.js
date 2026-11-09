@@ -1,6 +1,6 @@
 /**
  * Two looping scores under the essay.
- *   sad  — second half of Billie Eilish, WILDFLOWER (instrumental)
+ *   sad  — Billie Eilish, What Was I Made For? (instrumental)
  *   glad — The Schuyler Sisters (instrumental)
  * Mix is scroll-driven (0 = sad, 1 = glad) so the handoff is a blend.
  * Playback is paused whenever this tab is not visible.

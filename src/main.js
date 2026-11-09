@@ -102,7 +102,7 @@ function ensure(i) {
 }
 
 const music = startMusic({
-  sad: `${import.meta.env.BASE_URL}assets/audio/wildflower.m4a`,
+  sad: `${import.meta.env.BASE_URL}assets/audio/what-was-i-made-for.m4a`,
   glad: `${import.meta.env.BASE_URL}assets/audio/schuyler-sisters.mp3`,
 }, document.getElementById('hud-sound'));
 const director = new TextDirector(sections, {
